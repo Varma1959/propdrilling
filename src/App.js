@@ -1,26 +1,24 @@
 import React, { useState } from "react";
 import "./App.css";
 import data from "./Data";
+import List from "./List";
 
 function App() {
-  const [showData, setShowData] = useState(data);
+  const [people, setPeople] = useState(data);
+
   const RemoveItem = (id) => {
-    setShowData(() => {
-      return showData.filter((person) => person.id !== id);
-    });
+    const filteredPeople = (people) => {
+      return people.filter((person) => person.id !== id);
+    };
+    setPeople(filteredPeople);
   };
+
+  console.log(people);
+
   return (
     <div className="App">
-      <h1> Single Component</h1>
-      {showData.map((person) => {
-        const { name, id } = person;
-        return (
-          <div key={id}>
-            <h3>{name}</h3>
-            <button onClick={() => RemoveItem(id)}>remove</button>
-          </div>
-        );
-      })}
+      <h1> Multiple Component</h1>
+      <List people={people} RemoveItem={RemoveItem} />
     </div>
   );
 }
